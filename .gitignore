@@ -142,3 +142,7 @@ Thumbs.db
 *.swp
 *.swo
 files/
+
+# Custom directories
+inputs/
+outputs/
