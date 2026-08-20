@@ -1,0 +1,45 @@
+
+Loading alphabet assets...
+
+Loaded a.png → 800x800
+Loaded b.png → 800x800
+Loaded c.png → 800x800
+Loaded d.png → 800x950
+Loaded e.png → 800x800
+Loaded f.png → 800x800
+Loaded g.png → 800x800
+Loaded h.png → 800x800
+Loaded i.png → 800x1201
+Loaded j.png → 800x800
+Loaded k.png → 800x800
+Loaded l.png → 800x800
+Loaded m.png → 800x862
+Loaded n.png → 800x839
+Loaded o.png → 800x764
+Loaded p.png → 800x974
+Loaded q.png → 1024x1024
+Loaded r.png → 800x800
+Loaded s.png → 300x392
+Loaded t.png → 800x800
+Loaded u.png → 800x850
+Loaded v.png → 1024x1024
+Loaded w.png → 800x708
+Loaded x.png → 1024x1024
+Loaded y.png → 800x1034
+Loaded z.png → 800x800
+
+Found 1 words.
+
+
+Creating video: cat
+Scale: 0.6935
+
+========== FILTER ==========
+
+[0:v]scale=1080:1920,setsar=1[bg];[1:v]format=rgba[left_0];[bg][left_0]overlay=100:100:format=auto[left_layer_0];[3:v]format=rgba[left_1];[left_layer_0][left_1]overlay=100:683:format=auto[left_layer_1];[5:v]format=rgba[left_2];[left_layer_1][left_2]overlay=100:1265:format=auto[left_layer_2];[left_layer_2][6:v]overlay='if(lt(t,0.200),1180,if(lte(t,0.700),1180+(377-1180)*(1-pow(1-((t-0.200)/0.500),3)),if(lte(t,1.100),377,if(lte(t,1.450),377+(377-377)*(3*pow(((t-1.100)/0.350),2)-2*pow(((t-1.100)/0.350),3)),if(lte(t,1.850),377,if(lte(t,2.200),377+(377-377)*(3*pow(((t-1.850)/0.350),2)-2*pow(((t-1.850)/0.350),3)),377))))))':'if(lt(t,0.200),100,if(lte(t,0.700),100,if(lte(t,1.100),100,if(lte(t,1.450),100+(683-100)*(3*pow(((t-1.100)/0.350),2)-2*pow(((t-1.100)/0.350),3)),if(lte(t,1.850),683,if(lte(t,2.200),683+(1265-683)*(3*pow(((t-1.850)/0.350),2)-2*pow(((t-1.850)/0.350),3)),1265))))))':format=auto[right_layer_0];[right_layer_0][4:v]overlay='if(lt(t,2.600),1180,if(lte(t,3.100),1180+(377-1180)*(1-pow(1-((t-2.600)/0.500),3)),if(lte(t,3.500),377,if(lte(t,3.850),377+(377-377)*(3*pow(((t-3.500)/0.350),2)-2*pow(((t-3.500)/0.350),3)),377))))':'if(lt(t,2.600),100,if(lte(t,3.100),100,if(lte(t,3.500),100,if(lte(t,3.850),100+(683-100)*(3*pow(((t-3.500)/0.350),2)-2*pow(((t-3.500)/0.350),3)),683))))':format=auto[right_layer_1];[right_layer_1][2:v]overlay='if(lt(t,4.250),1180,if(lte(t,4.750),1180+(377-1180)*(1-pow(1-((t-4.250)/0.500),3)),377))':'if(lt(t,4.250),100,if(lte(t,4.750),100,100))':format=auto[right_layer_2];[right_layer_2][8:v]overlay=695:308:enable='between(t,0.700,1.100)':format=auto[ind_layer_0];[ind_layer_0][8:v]overlay=695:891:enable='between(t,1.450,1.850)':format=auto[ind_layer_1];[ind_layer_1][7:v]overlay=695:1473:enable='between(t,2.200,2.600)':format=auto[ind_layer_2];[ind_layer_2][8:v]overlay=695:308:enable='between(t,3.100,3.500)':format=auto[ind_layer_3];[ind_layer_3][7:v]overlay=695:891:enable='between(t,3.850,4.250)':format=auto[ind_layer_4];[ind_layer_4][7:v]overlay=695:308:enable='between(t,4.750,5.150)':format=auto[final];[final]format=yuv420p[out]
+
+============================
+
+Finished: /Users/mohammadhabiburrahman/Development/alphabet-automation/outputs/cat.mp4
+
+All videos generated.
