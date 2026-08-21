@@ -1,8 +1,30 @@
 const fs = require("fs");
 const path = require("path");
 const sharp = require("sharp");
-const { spawn } = require("child_process");
+const { spawn, execSync } = require("child_process");
 
+function getBestVideoEncoder() {
+  const encodersToTry = [
+    'h264_videotoolbox', // Mac
+    'h264_nvenc',        // NVIDIA
+    'h264_qsv',          // Intel Quick Sync
+  ];
+
+  for (const encoder of encodersToTry) {
+    try {
+      execSync(`ffmpeg -f lavfi -i color=c=black:s=128x128 -c:v ${encoder} -t 0.1 -f null - 2>/dev/null`, { stdio: 'ignore' });
+      console.log(`\nFound supported hardware encoder: ${encoder}`);
+      return encoder;
+    } catch (e) {
+      // Failed, move on to the next
+    }
+  }
+
+  console.log(`\nNo hardware encoder found. Using CPU encoder: libx264`);
+  return 'libx264';
+}
+
+const VIDEO_ENCODER = getBestVideoEncoder();
 const ASSETS_DIR = path.join(__dirname, "assets");
 
 const OUTPUT_DIR = path.join(__dirname, "outputs");
@@ -945,7 +967,7 @@ function buildFFmpegArgs(
       FPS.toString(),
 
       "-c:v",
-      "libx264",
+      VIDEO_ENCODER,
 
       "-preset",
       "medium",
