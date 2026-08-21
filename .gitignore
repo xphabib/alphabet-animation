@@ -146,3 +146,6 @@ files/
 # Custom directories
 inputs/*
 outputs/*
+
+# Zip outputs
+output.zip
