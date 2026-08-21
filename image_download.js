@@ -87,12 +87,18 @@ async function main() {
     const args = process.argv.slice(2);
     let queries = [];
 
+    const inputFile = path.join(__dirname, 'input.txt');
     if (args.length > 0) {
         queries = [args[0]];
         console.log(`Searching images for: ${queries[0]}`);
+    } else if (fs.existsSync(inputFile)) {
+        console.log(`Reading queries from input.txt...`);
+        const content = fs.readFileSync(inputFile, 'utf-8');
+        queries = content.split('\n').map(line => line.trim()).filter(Boolean);
+        console.log(`Found ${queries.length} queries in input.txt`);
     } else {
         queries = animals;
-        console.log(`No query provided. Downloading images for all ${animals.length} animals in the array...`);
+        console.log(`No query provided and input.txt not found. Downloading images for all ${animals.length} animals in the array...`);
     }
 
     const outputDir = path.join(__dirname, 'inputs');
