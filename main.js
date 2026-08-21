@@ -1199,26 +1199,25 @@ async function main() {
     // Generate videos
     // --------------------------------------------
 
-    for (const word of words) {
+    const BATCH_SIZE = 3;
+    for (let i = 0; i < words.length; i += BATCH_SIZE) {
+      const batch = words.slice(i, i + BATCH_SIZE);
+      
+      console.log(`\nProcessing batch ${Math.floor(i / BATCH_SIZE) + 1} of ${Math.ceil(words.length / BATCH_SIZE)}...`);
+      
+      const promises = batch.map(async (word) => {
+        validateWord(word, alphabet);
+        const outputPath = path.join(OUTPUT_DIR, `${word}.mp4`);
+        
+        try {
+          await createWordAnimation(word, alphabet, outputPath);
+        } catch (err) {
+          console.error(`Error processing ${word}:`, err);
+          throw err;
+        }
+      });
 
-      validateWord(
-          word,
-          alphabet
-      );
-
-
-      const outputPath =
-          path.join(
-              OUTPUT_DIR,
-              `${word}.mp4`
-          );
-
-
-      await createWordAnimation(
-          word,
-          alphabet,
-          outputPath
-      );
+      await Promise.all(promises);
     }
 
 
