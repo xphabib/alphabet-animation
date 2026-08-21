@@ -106,8 +106,11 @@ function loadWords() {
 
   return fs
       .readdirSync(INPUTS_DIR)
-      .filter((file) => file.endsWith(".png"))
-      .map((file) => path.basename(file, ".png").trim().toLowerCase())
+      .filter((file) => {
+        const ext = path.extname(file).toLowerCase();
+        return [".png", ".jpg", ".jpeg"].includes(ext);
+      })
+      .map((file) => path.basename(file, path.extname(file)).trim().toLowerCase())
       .filter(Boolean);
 }
 
@@ -404,13 +407,25 @@ async function prepareLetterHalves(
   // ----------------------------------------------
   // Final full word image
   // ----------------------------------------------
-  const finalImagePath = path.join(INPUTS_DIR, `${word}.png`);
+  let finalImagePath = null;
+  const inputFiles = fs.readdirSync(INPUTS_DIR);
+  for (const file of inputFiles) {
+    const base = path.basename(file, path.extname(file));
+    if (base.toLowerCase() === word) {
+      const ext = path.extname(file).toLowerCase();
+      if ([".png", ".jpg", ".jpeg"].includes(ext)) {
+        finalImagePath = path.join(INPUTS_DIR, file);
+        break;
+      }
+    }
+  }
   let finalImageInfo = null;
   
-  if (fs.existsSync(finalImagePath)) {
+  if (finalImagePath) {
     const resizedFinalPath = path.join(tempDir, "final_image.png");
     const resizedFinal = await sharp(finalImagePath)
       .resize(500, 500, { fit: "inside" })
+      .png()
       .toBuffer({ resolveWithObject: true });
 
     await sharp(resizedFinal.data).toFile(resizedFinalPath);
